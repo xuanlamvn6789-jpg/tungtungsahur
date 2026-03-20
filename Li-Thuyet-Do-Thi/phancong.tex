@@ -1,0 +1,89 @@
+\documentclass[10pt, xcolor={dvipsnames}]{beamer}
+
+%========================
+% KHAI BÁO MÓNG (BẮT BUỘC PHẢI CÓ)
+%========================
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, shadows, calc}
+\usepackage{graphicx}
+\usepackage[most]{tcolorbox}
+
+%========================
+% ĐỊNH NGHĨA MÀU SẮC & GIAO DIỆN
+%========================
+\definecolor{mainblue}{RGB}{0, 102, 104}
+\definecolor{lightorange}{RGB}{255, 140, 0}
+\definecolor{softblue}{RGB}{235, 245, 255}
+\usetheme{Madrid}
+\setbeamercolor{palette primary}{bg=mainblue, fg=white}
+
+% BẮT ĐẦU TÀI LIỆU
+\begin{document}
+
+%===========================================================
+% SLIDE 1: LỜI CHÀO 
+%===========================================================
+\begin{frame}
+    \centering
+    \begin{tikzpicture}
+        \node[draw=mainblue, fill=softblue, ultra thick, rounded corners=20pt, inner sep=20pt, shadow={3mm}{-3mm}{0mm}{black!30}] (hello) 
+        {\huge \bfseries \color{mainblue} XIN CHÀO MỌI NGƯỜI!};
+    \end{tikzpicture}
+    
+    \vspace{1.5cm}
+    \LARGE
+    Chào mừng thầy cô và các bạn đã đến với\\
+    \textbf{\color{lightorange}Nhóm Tung Tung Tung Sahur}
+    
+    \vspace{1cm}
+    \large \textit{"Đánh thức niềm đam mê, phá đảo thế giới Đồ thị!"}
+\end{frame}
+
+%===========================================================
+% SLIDE 2: GIỚI THIỆU THÀNH VIÊN ĐÃ CÓ ẢNH THẬT
+%===========================================================
+\begin{frame}{Đội ngũ Phá đảo của Tung Tung Tung Sahur}
+    \begin{columns}[T]
+        % VIẾT PHÚC
+        \begin{column}{0.32\textwidth}
+            \centering
+            \begin{tcolorbox}[enhanced, colback=white, colframe=mainblue, arc=10pt, boxrule=2pt, 
+                title=\footnotesize \textbf{VIẾT PHÚC}, fonttitle=\bfseries\centering,
+                shadow={1mm}{-1mm}{0mm}{black!10}]
+                \includegraphics[width=\textwidth, height=3.5cm, keepaspectratio]{phuc.jpg} 
+            \end{tcolorbox}
+            \small \textbf{Mastermind}\\
+            \scriptsize Phụ trách Giải thuật\\\& Bài toán Đồ thị
+        \end{column}
+
+        % NHƯ BẢO
+        \begin{column}{0.32\textwidth}
+            \centering
+            \begin{tcolorbox}[enhanced, colback=white, colframe=lightorange, arc=10pt, boxrule=2pt, 
+                title=\footnotesize \textbf{NHƯ BẢO}, fonttitle=\bfseries\centering,
+                shadow={1mm}{-1mm}{0mm}{black!10}]
+                \includegraphics[width=\textwidth, height=3.5cm, keepaspectratio]{bao.jpg}
+            \end{tcolorbox}
+            \small \textbf{The Presenter}\\
+            \scriptsize Phụ trách Lý thuyết\\\& Giới thiệu \& Thuyết trình
+        \end{column}
+
+        % XUÂN LÂM
+        \begin{column}{0.32\textwidth}
+            \centering
+            \begin{tcolorbox}[enhanced, colback=white, colframe=blue!70!black, arc=10pt, boxrule=2pt, 
+                title=\footnotesize \textbf{XUÂN LÂM}, fonttitle=\bfseries\centering,
+                shadow={1mm}{-1mm}{0mm}{black!10}]
+                \includegraphics[width=\textwidth, height=3.5cm, keepaspectratio]{lam.jpg}
+            \end{tcolorbox}
+            \small \textbf{Game Developer}\\
+            \scriptsize Phụ trách Thiết kế\\\& Phát triển Game
+        \end{column}
+    \end{columns}
+\end{frame}
+
+% KẾT THÚC TÀI LIỆU (BẮT BUỘC)
+\end{document}
