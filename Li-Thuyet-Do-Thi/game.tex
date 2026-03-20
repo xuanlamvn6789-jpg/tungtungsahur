@@ -1,0 +1,191 @@
+\documentclass[10pt, xcolor={dvipsnames}]{beamer}
+
+%========================
+% CẤU HÌNH HỆ THỐNG
+%========================
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, calc, shapes.geometric, shadows, patterns}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, shadows, themes}
+
+%========================
+% TÔNG MÀU GỐC XANH - CAM
+%========================
+\usetheme{Madrid}
+\definecolor{mainblue}{RGB}{0, 102, 104} 
+\definecolor{lightorange}{RGB}{255, 140, 0} 
+\definecolor{correctgreen}{RGB}{0, 153, 51}
+
+\setbeamercolor{palette primary}{bg=mainblue, fg=white}
+\setbeamercolor{palette secondary}{bg=lightorange, fg=white}
+\setbeamercolor{structure}{fg=mainblue}
+
+% Hộp nội dung đặc sắc
+\newtcolorbox{gamebox}[2]{
+    enhanced, colback=white, colframe=#1, title=#2,
+    fonttitle=\bfseries\large, arc=3pt, boxrule=1pt, 
+    shadow={1mm}{-1mm}{0mm}{black!10}
+}
+
+\begin{document}
+
+%--- SLIDE MỞ ĐẦU ---
+\begin{frame}[plain]
+    \centering
+    \begin{tikzpicture}
+        \node[starburst, fill=lightorange, draw=mainblue, line width=2pt, minimum size=4cm] at (0,0) {\bfseries \Huge \color{white} GAME};
+    \end{tikzpicture}
+    \vspace{0.4cm}
+    \begin{gamebox}{mainblue}{NHÓM THỰC HIỆN}
+        \centering \Large \textbf{Tung Tung Tung Sahur} \\
+        \vspace{0.2cm}
+        \small 10 Câu Hỏi Thử Thách Đồ Thị Thú Vị
+    \end{gamebox}
+\end{frame}
+
+%--- CÂU 1 ---
+\begin{frame}{Câu 1: Bài toán Bắt tay}
+    \begin{gamebox}{mainblue}{Câu hỏi}
+        Trong một bữa tiệc có 10 người. Nếu mỗi người đều bắt tay với tất cả những người còn lại đúng 1 lần, có tổng cộng bao nhiêu cái bắt tay?
+    \end{gamebox}
+    \begin{itemize}
+        \item[\textbf{A.}] 100 \quad \quad \quad \quad \textbf{B.} 90
+        \item[\textbf{C.}] \only<1>{45}\only<2>{\textbf{\color{correctgreen}45 (Đúng!)}} \quad \quad \textbf{D.} 20
+    \end{itemize}
+    \only<2>{\textit{\color{mainblue}Giải thích: Đây là đồ thị đầy đủ $K_{10}$, số cạnh là $C^{2}_{10} = 45$.}}
+\end{frame}
+
+%--- CÂU 2 ---
+\begin{frame}{Câu 2: Bảy cây cầu Königsberg}
+    \begin{gamebox}{lightorange}{Câu hỏi}
+        Leonhard Euler đã chứng minh không thể đi qua 7 cây cầu mà mỗi cầu chỉ đi 1 lần. Lý do chính là gì?
+    \end{gamebox}
+    \begin{itemize}
+        \item[\textbf{A.}] Đồ thị không liên thông.
+        \item[\textbf{B.}] \only<1>{Có quá nhiều đỉnh bậc lẻ.}\only<2>{\textbf{\color{correctgreen}Có quá nhiều đỉnh bậc lẻ (4 đỉnh).}}
+        \item[\textbf{C.}] Đồ thị là một cây.
+        \item[\textbf{D.}] Có chu trình Euler.
+    \end{itemize}
+\end{frame}
+
+%--- CÂU 3 ---
+\begin{frame}{Câu 3: Bài toán Tô màu bản đồ}
+    \begin{gamebox}{mainblue}{Câu hỏi}
+        Số màu tối thiểu cần thiết để tô màu bất kỳ bản đồ phẳng nào sao cho các vùng giáp ranh không cùng màu là bao nhiêu?
+    \end{gamebox}
+    \begin{itemize}
+        \item[\textbf{A.}] 2 màu \quad \quad \quad \quad \textbf{B.} 3 màu
+        \item[\textbf{C.}] \only<1>{4 màu}\only<2>{\textbf{\color{correctgreen}4 màu (Định lý 4 màu)}} \quad \textbf{D.} 5 màu
+    \end{itemize}
+\end{frame}
+
+%--- CÂU 4 ---
+\begin{frame}{Câu 4: Mạng xã hội}
+    \begin{gamebox}{lightorange}{Câu hỏi}
+        Trong đồ thị mạng xã hội (Facebook), quan hệ "Bạn bè" thuộc loại đồ thị nào?
+    \end{gamebox}
+    \begin{itemize}
+        \item[\textbf{A.}] Có hướng.
+        \item[\textbf{B.}] \only<1>{Vô hướng.}\only<2>{\textbf{\color{correctgreen}Vô hướng (Kết bạn là 2 chiều).}}
+        \item[\textbf{C.}] Đồ thị rỗng.
+        \item[\textbf{D.}] Đồ thị phân đôi hoàn toàn.
+    \end{itemize}
+\end{frame}
+
+%--- CÂU 5 ---
+\begin{frame}{Câu 5: Bài toán Con mã trên bàn cờ}
+    \begin{gamebox}{mainblue}{Câu hỏi}
+        Lộ trình của con mã đi qua tất cả các ô bàn cờ đúng 1 lần tương ứng với khái niệm nào?
+    \end{gamebox}
+    \begin{itemize}
+        \item[\textbf{A.}] Đường đi Euler.
+        \item[\textbf{B.}] \only<1>{Đường đi Hamilton.}\only<2>{\textbf{\color{correctgreen}Đường đi Hamilton.}}
+        \item[\textbf{C.}] Cây khung nhỏ nhất.
+        \item[\textbf{D.}] Luồng cực đại.
+    \end{itemize}
+\end{frame}
+
+%--- CÂU 6 ---
+\begin{frame}{Câu 6: Bậc của Đỉnh}
+    \begin{gamebox}{lightorange}{Câu hỏi}
+        Trong một nhóm bạn, có thể tồn tại một nhóm mà số người có số lượng bạn bè là số lẻ lại là một số lẻ không?
+    \end{gamebox}
+    \begin{itemize}
+        \item[\textbf{A.}] Có thể.
+        \item[\textbf{B.}] \only<1>{Không thể.}\only<2>{\textbf{\color{correctgreen}Không thể (Định lý bắt tay).}}
+        \item[\textbf{C.}] Tùy vào số lượng người.
+        \item[\textbf{D.}] Chỉ khi đồ thị phẳng.
+    \end{itemize}
+\end{frame}
+
+%--- CÂU 7 ---
+\begin{frame}{Câu 7: Độ lệch Google Maps}
+    \begin{gamebox}{mainblue}{Câu hỏi}
+        Thuật toán phổ biến nhất mà Google Maps dùng để tìm đường ngắn nhất là gì?
+    \end{gamebox}
+    \begin{itemize}
+        \item[\textbf{A.}] Kruskal \quad \quad \quad \quad \textbf{B.} Prim
+        \item[\textbf{C.}] \only<1>{Dijkstra}\only<2>{\textbf{\color{correctgreen}Dijkstra (và biến thể A*)}} \quad \textbf{D.} Ford-Fulkerson
+    \end{itemize}
+\end{frame}
+
+%--- CÂU 8 ---
+\begin{frame}{Câu 8: Cây Phả hệ}
+    \begin{gamebox}{lightorange}{Câu hỏi}
+        Cây phả hệ của một dòng họ (không có hôn nhân cận huyết) có chứa chu trình không?
+    \end{gamebox}
+    \begin{itemize}
+        \item[\textbf{A.}] Có.
+        \item[\textbf{B.}] \only<1>{Không.}\only<2>{\textbf{\color{correctgreen}Không (Cây không có chu trình).}}
+        \item[\textbf{C.}] Chỉ ở đời thứ 3.
+        \item[\textbf{D.}] Có, nếu tính cả họ hàng xa.
+    \end{itemize}
+\end{frame}
+
+%--- CÂU 9 ---
+\begin{frame}{Câu 9: Bố trí máy chủ}
+    \begin{gamebox}{mainblue}{Câu hỏi}
+        Để nối 5 máy chủ sao cho máy nào cũng thông với máy nào bằng ít dây cáp nhất, cần bao nhiêu dây?
+    \end{gamebox}
+    \begin{itemize}
+        \item[\textbf{A.}] 5 dây \quad \quad \quad \quad \textbf{B.} 10 dây
+        \item[\textbf{C.}] \only<1>{4 dây}\only<2>{\textbf{\color{correctgreen}4 dây (Đặc điểm của Cây)}} \quad \textbf{D.} 6 dây
+    \end{itemize}
+\end{frame}
+
+%--- CÂU 10 ---
+\begin{frame}{Câu 10: Người xa lạ}
+    \begin{gamebox}{lightorange}{Câu hỏi}
+        Giả thuyết "6 chặng phân cách" (Six Degrees of Separation) nói rằng bất kỳ ai cũng kết nối với nhau qua tối đa bao nhiêu người trung gian?
+    \end{gamebox}
+    \begin{itemize}
+        \item[\textbf{A.}] 3 người \quad \quad \quad \quad \textbf{B.} \only<1>{6 người}\only<2>{\textbf{\color{correctgreen}6 người}}
+        \item[\textbf{C.}] 10 người \quad \quad \quad \quad \textbf{D.} 100 người
+    \end{itemize}
+\end{frame}
+
+%--- SLIDE KẾT THÚC ---
+\begin{frame}[plain]
+    \centering
+    \begin{tikzpicture}
+        \node[circle, shading=ball, ball color=lightorange, minimum size=3cm] at (0,0) {\Huge \bfseries \color{white} THANKS!};
+    \end{tikzpicture}
+    
+    \vspace{0.6cm}
+    \begin{gamebox}{mainblue}{LỜI CẢM ƠN}
+        \centering
+        Cảm ơn thầy và các bạn đã dành thời gian theo dõi \\ phần trình bày của nhóm chúng em!
+    \end{gamebox}
+    
+    \vspace{0.4cm}
+    \textbf{Nhóm sinh viên thực hiện:} \\
+    \textcolor{mainblue}{\Large \textbf{Tung Tung Tung Sahur}} \\
+    \vspace{0.4cm}
+    \textit{"Đồ thị là cuộc sống, hãy kết nối chúng lại!"}
+\end{frame}
+
+\end{document}
