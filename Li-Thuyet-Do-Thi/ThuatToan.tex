@@ -3,28 +3,36 @@
 % Hỗ trợ tiếng Việt
 \usepackage[utf8]{vietnam}
 \usepackage{graphicx}
-\usepackage{tikz} % Để vẽ đồ thị step-by-step
+\usepackage{tikz} 
 \usetikzlibrary{positioning, arrows.meta}
 
-% Giao diện slide (bạn có thể đổi Madrid thành các theme khác như: default, Boadilla, CambridgeUS...)
+% Giao diện slide
 \usetheme{Madrid}
 \usecolortheme{default}
 
 % ==========================================
-% ĐOẠN CODE THÊM VÀO ĐỂ ĐỔI MÀU & CHÂN TRANG (GIỮ NGUYÊN NỘI DUNG BÊN DƯỚI)
+% ĐỔI MÀU & CHÂN TRANG
 % ==========================================
 \definecolor{DarkTeal}{RGB}{0, 80, 80}
 \definecolor{OrangeAccent}{RGB}{255, 150, 0}
+\definecolor{myblue}{RGB}{0, 114, 178} % Màu dùng trong TikZ của bạn
+\definecolor{myorange}{RGB}{213, 94, 0} % Màu dùng trong TikZ của bạn
 
 \setbeamercolor{structure}{fg=DarkTeal}
 \setbeamercolor{palette primary}{bg=DarkTeal, fg=white}
 \setbeamercolor{palette secondary}{bg=OrangeAccent, fg=white}
 \setbeamercolor{palette tertiary}{bg=DarkTeal!90, fg=white}
 \setbeamercolor{frametitle}{bg=DarkTeal, fg=white}
+
+% Cài đặt màu cho các hộp (box) của bạn
 \setbeamercolor{block title}{bg=DarkTeal, fg=white}
+\setbeamercolor{block body}{bg=DarkTeal!10, fg=black}
+\setbeamercolor{block title alerted}{bg=OrangeAccent, fg=white}
+\setbeamercolor{block body alerted}{bg=OrangeAccent!10, fg=black}
+
 \setbeamertemplate{navigation symbols}{} % Ẩn thanh điều hướng
 
-% Tùy chỉnh chân trang giống ảnh
+% Tùy chỉnh chân trang
 \setbeamertemplate{footline}{
   \leavevmode%
   \hbox{%
@@ -40,133 +48,113 @@
   \end{beamercolorbox}}%
   \vskip0pt%
 }
-% ==========================================
 
-% Cài đặt thông tin trang bìa
-\title[Lý Thuyết Đồ Thị]{Bài Thuyết Trình: Lý Thuyết Đồ Thị \& Ứng Dụng}
-\subtitle{Phần 3: Thuật toán \& Phần 4: Các bài toán hay}
-\author[Tung Tung Tung Sahur]{Tung Tung Tung Sahur} % Đã cập nhật tên bạn
-\date{\today}
+% ==========================================
+% ĐỊNH NGHĨA MÔI TRƯỜNG THEO CODE CỦA BẠN
+% ==========================================
+\newenvironment{mainbox}[1]{\begin{block}{#1}}{\end{block}}
+\newenvironment{highlightbox}[1]{\begin{alertblock}{#1}}{\end{alertblock}}
+
+% Thông tin cơ bản
+\author[Tung Tung Tung Sahur]{Tung Tung Tung Sahur}
 
 \begin{document}
 
-% --- TRANG BÌA ---
-\begin{frame}
-    \titlepage
-\end{frame}
-
-% --- MỤC LỤC ---
-\begin{frame}{Nội dung chính}
-    \tableofcontents
-\end{frame}
-
 % ==========================================
-% PHẦN 3: THUẬT TOÁN
+% PHẦN 4: BÀI TOÁN HAY (TỪ ẢNH 2 & 3)
 % ==========================================
-\section{Phần 3: Thuật toán}
+\section{Bài toán hay}
 
-\begin{frame}{ PHẦN 3: Thuật toán}
-    \begin{center}
-    \end{center}
-    \vspace{0.5cm}
-    \begin{itemize}
-        \item[$\bullet$] \textbf{BFS} (Breadth-First Search - Tìm kiếm theo chiều rộng)
-        \begin{itemize}
-        \item \textit{Trình bày có hình minh họa từng bước (step-by-step).}
-        \end{itemize}
-        \vspace{0.3cm}
-        \item[$\bullet$] \textbf{DFS} (Depth-First Search - Tìm kiếm theo chiều sâu)
-        \vspace{0.3cm}
-        \item[$\bullet$] \textbf{Dijkstra}
-        \begin{itemize}
-        \item \textit{Giới thiệu cơ bản về thuật toán tìm đường đi ngắn nhất.}
-        \end{itemize}
-    \end{itemize}
-    
-    \vspace{0.5cm}
-    \begin{block}{Ghi chú}
-         Tất cả các thuật toán đều được làm theo dạng \textbf{"step-by-step"}.
-    \end{block}
+\begin{frame}{ PHẦN 4: Một số bài toán hay }
+    \begin{center}
+    \end{center}
+    \vspace{0.3cm}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \begin{mainbox}{1. 7 cây cầu Königsberg}
+                Bài toán kinh điển dẫn đến sự ra đời của Lý thuyết đồ thị.
+            \end{mainbox}
+            \vspace{0.2cm}
+            \begin{mainbox}{2. Tô màu bản đồ}
+                Định lý 4 màu và các ứng dụng trong thực tế.
+            \end{mainbox}
+        \end{column}
+        \begin{column}{0.48\textwidth}
+            \begin{mainbox}{3. Đường đi ngắn nhất}
+                Tối ưu hóa hành trình từ A đến B trong thực tế.
+            \end{mainbox}
+            \vspace{0.2cm}
+            \begin{mainbox}{4. Mạng xã hội}
+                Phân tích ai là người "trung tâm" của đám đông.
+            \end{mainbox}
+        \end{column}
+    \end{columns}
 \end{frame}
 
-% --- BFS STEP BY STEP (Ví dụ minh họa) ---
-\begin{frame}{1. Thuật toán BFS (Tìm kiếm theo chiều rộng)}
-    \textbf{Minh họa Step-by-step:} Bắt đầu từ đỉnh A.
-    \vspace{0.5cm}
-    
-    \begin{center}
-    \begin{tikzpicture}[
-        node distance=2cm,
-        main node/.style={circle, draw, font=\bfseries, minimum size=8mm},
-        visited/.style={circle, draw, fill=blue!30, font=\bfseries, minimum size=8mm},
-        queue/.style={circle, draw, fill=green!30, font=\bfseries, minimum size=8mm}
-    ]
-        % Khai báo các node
-        \node[main node]<1>[label=above:Start] (A) {A};
-        \node[visited]<2->[label=above:Start] (A) {A};
-        
-        \node[main node]<1-2> (B) [below left of=A] {B};
-        \node[queue]<3> (B) [below left of=A] {B};
-        \node[visited]<4-> (B) [below left of=A] {B};
-        
-        \node[main node]<1-2> (C) [below right of=A] {C};
-        \node[queue]<3-4> (C) [below right of=A] {C};
-\node[visited]<5-> (C) [below right of=A] {C};
-        
-        \node[main node]<1-4> (D) [below of=B] {D};
-        \node[queue]<5> (D) [below of=B] {D};
-        \node[visited]<6-> (D) [below of=B] {D};
-
-        % Khai báo các cạnh
-        \path[draw, thick]
-        (A) edge (B)
-        (A) edge (C)
-        (B) edge (D)
-        (C) edge (D);
-    \end{tikzpicture}
-    \end{center}
-    
-    \vspace{0.5cm}
-    \begin{itemize}
-        \item<1-> \textbf{Bước 0:} Đồ thị ban đầu.
-        \item<2-> \textbf{Bước 1:} Thăm đỉnh A, đưa vào hàng đợi.
-        \item<3-> \textbf{Bước 2:} Lấy A ra, đưa các đỉnh kề của A (B, C) vào hàng đợi.
-        \item<4-> \textbf{Bước 3:} Lấy B ra, đưa đỉnh kề (D) vào hàng đợi.
-        \item<5-> \textbf{Bước 4:} Lấy C ra (không có đỉnh kề mới).
-        \item<6-> \textbf{Bước 5:} Thăm D. Hoàn thành BFS.
-    \end{itemize}
+% --- CHI TIẾT BÀI TOÁN 1 ---
+\begin{frame}{1. Bài toán 7 cây cầu (Seven Bridges)}
+    \begin{columns}[T]
+        \begin{column}{0.6\textwidth}
+            \begin{mainbox}{Lịch sử \& Thách thức}
+                Thành phố Königsberg có 7 cây cầu nối các vùng đất. Câu hỏi: \textbf{Có thể đi qua mỗi cầu đúng 1 lần rồi quay về?}
+            \end{mainbox}
+            \vspace{0.3cm}
+            \begin{highlightbox}{Kết luận của Euler}
+                $\rightarrow$ \textbf{KHÔNG THỂ!} 
+                Vì số lượng cầu (cạnh) nối vào mỗi vùng đất (đỉnh) phải là số chẵn.
+            \end{highlightbox}
+        \end{column}
+        \begin{column}{0.35\textwidth}
+            \begin{center}
+                \textit{(Hình minh họa)} \\
+                \begin{tikzpicture}
+                    \node[draw, fill=gray!20, minimum size=1cm] (island) {Đảo};
+                    \foreach \a in {45, 90, 135, 225, 270, 315, 0}
+                        \draw (island) -- (\a:1.5cm);
+                \end{tikzpicture}
+            \end{center}
+        \end{column}
+    \end{columns}
 \end{frame}
 
-% --- DFS ---
-\begin{frame}{2. Thuật toán DFS (Tìm kiếm theo chiều sâu)}
-    \begin{itemize}
-        \item \textbf{Khái niệm:} Khám phá các nhánh sâu nhất có thể trước khi quay lui (backtracking). \pause
-        \item \textbf{Cấu trúc dữ liệu:} Sử dụng \textit{Stack (Ngăn xếp)}. \pause
-        \item \textbf{Quy trình cơ bản:}
-        \begin{enumerate}
-        \item Thăm một đỉnh kề chưa được thăm. Đánh dấu đã thăm và đẩy vào Stack. \pause
-        \item Nếu không tìm thấy đỉnh kề nào, lấy đỉnh ở trên cùng của Stack ra. \pause
-        \item Lặp lại đến khi Stack rỗng.
-        \end{enumerate}
-    \end{itemize}
-    \vspace{0.5cm}
-    \textit{(Bạn có thể copy đoạn code vẽ sơ đồ TikZ ở slide BFS trên, đổi màu để minh họa cách đi sâu vào 1 nhánh của DFS cho các slide tiếp theo).}
+% --- CHI TIẾT BÀI TOÁN 2 ---
+\begin{frame}{2. Bài toán tô màu bản đồ}
+    \begin{columns}[T]
+        \begin{column}{0.5\textwidth}
+            \begin{mainbox}{Định lý 4 màu}
+                Mọi bản đồ trên mặt phẳng đều có thể tô bằng \textbf{tối đa 4 màu} mà không có hai vùng láng giềng nào trùng màu nhau.
+            \end{mainbox}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{highlightbox}{Ứng dụng thực tế}
+                \begin{itemize}
+                    \item Sắp xếp lịch thi cử tránh trùng môn.
+                    \item Cấp phát tần số cho các trạm phát sóng điện thoại.
+                \end{itemize}
+            \end{highlightbox}
+        \end{column}
+    \end{columns}
 \end{frame}
 
-% --- DIJKSTRA ---
-\begin{frame}{3. Thuật toán Dijkstra (Cơ bản)}
-    \begin{block}{Mục đích}
-        Tìm đường đi ngắn nhất từ một đỉnh nguồn đến tất cả các đỉnh còn lại trong đồ thị (có trọng số không âm).
-    \end{block}
-    \pause
-    
-    \textbf{Ý tưởng Step-by-step:}
-    \begin{itemize}
-        \item<2-> Khởi tạo khoảng cách từ điểm đầu đến chính nó là $0$, đến các điểm khác là $\infty$.
-        \item<3-> Chọn đỉnh có khoảng cách nhỏ nhất chưa được duyệt.
-        \item<4-> Cập nhật lại khoảng cách cho các đỉnh kề của nó.
-        \item<5-> Lặp lại cho đến khi tất cả các đỉnh đều được duyệt.
-    \end{itemize}
+% --- CHI TIẾT BÀI TOÁN 4 ---
+\begin{frame}{4. Bài toán mạng xã hội}
+    \begin{mainbox}{Ai là người "trung tâm"?}
+        Trong một mạng lưới kết nối, việc tìm ra người quan trọng nhất dựa trên:
+        \begin{itemize}
+            \item \textbf{Degree Centrality:} Ai có nhiều bạn nhất?
+            \item \textbf{Betweenness Centrality:} Ai là "cầu nối" duy nhất giữa các nhóm?
+        \end{itemize}
+    \end{mainbox}
+    \vspace{0.3cm}
+    \begin{center}
+        \begin{tikzpicture}
+            \node[circle, fill=myorange, inner sep=5pt] (hub) at (0,0) {};
+            \foreach \i in {1,...,6} {
+                \node[circle, fill=myblue!50, inner sep=3pt] (n\i) at (\i*60:1.5) {};
+                \draw (hub) -- (n\i);
+            }
+        \end{tikzpicture}
+    \end{center}
 \end{frame}
 
 \end{document}
