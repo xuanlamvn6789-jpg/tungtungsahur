@@ -1,410 +1,276 @@
 \documentclass[11pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage{lmodern}
+\usepackage{tikz} % Thêm package vẽ hình
 
-% Hỗ trợ tiếng Việt
-\usepackage[utf8]{vietnam}
-\usepackage{graphicx}
-\usepackage{tikz} 
-\usetikzlibrary{positioning, arrows.meta}
+% --- CHỈNH MÀU GIỐNG SLIDE MẪU ---
+\definecolor{myteal}{RGB}{0, 102, 102} % Xanh ngọc
+\definecolor{myorange}{RGB}{255, 140, 0} % Cam
 
-% Giao diện slide
 \usetheme{Madrid}
-\usecolortheme{default}
+\usecolortheme[named=myteal]{structure}
+\beamertemplatenavigationsymbolsempty
 
-% ==========================================
-% ĐỔI MÀU & CHÂN TRANG
-% ==========================================
-\definecolor{DarkTeal}{RGB}{0, 80, 80}
-\definecolor{OrangeAccent}{RGB}{255, 150, 0}
+% Đổi màu Block
+\setbeamercolor{block title}{bg=myteal, fg=white}
+\setbeamercolor{block body}{bg=myteal!10, fg=black}
+\setbeamercolor{block title example}{bg=myorange, fg=white}
+\setbeamercolor{block body example}{bg=myorange!10, fg=black}
 
-\setbeamercolor{structure}{fg=DarkTeal}
-\setbeamercolor{palette primary}{bg=DarkTeal, fg=white}
-\setbeamercolor{palette secondary}{bg=OrangeAccent, fg=white}
-\setbeamercolor{palette tertiary}{bg=DarkTeal!90, fg=white}
-\setbeamercolor{frametitle}{bg=DarkTeal, fg=white}
-\setbeamercolor{block title}{bg=DarkTeal, fg=white}
-\setbeamertemplate{navigation symbols}{} % Ẩn thanh điều hướng
+% --- CHỈNH MÀU CAM CHO CÁI THANH Ở DƯỚI (FOOTLINE) ---
+\setbeamercolor{author in head/foot}{bg=myteal, fg=white}
+\setbeamercolor{title in head/foot}{bg=myorange, fg=white}
+\setbeamercolor{date in head/foot}{bg=myteal, fg=white}
 
-% Tùy chỉnh chân trang
-\setbeamertemplate{footline}{
+\setbeamertemplate{footline}
+{
   \leavevmode%
   \hbox{%
-  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{palette tertiary}%
-    \usebeamerfont{author in head/foot}\insertshortauthor
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    Tung Tung Tung Sahur
   \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{palette secondary}%
-    \usebeamerfont{title in head/foot}LÝ THUYẾT ĐỒ THỊ
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    % Ở giữa để trống lấy nền màu cam
   \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{palette primary}%
-    Học kỳ II - 2026 \hspace*{2em}
-    \insertframenumber{} / \inserttotalframenumber \hspace*{2ex} 
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    Ngày 20 tháng 3 năm 2026 \hspace{1em} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
   \end{beamercolorbox}}%
   \vskip0pt%
 }
-% ==========================================
 
-% Cài đặt thông tin trang bìa
-\title[Lý Thuyết Đồ Thị]{Bài Thuyết Trình: Lý Thuyết Đồ Thị \& Ứng Dụng}
-\subtitle{Phần 3: Thuật toán cơ bản}
-\author[Tung Tung Tung Sahur]{Tung Tung Tung Sahur}
-\date{\today}
+% --- THÔNG TIN TRANG BÌA ---
+\title[DFS, BFS \& Dijkstra]{Lý thuyết Đồ thị: Đi sao cho chuẩn?}
+\subtitle{DFS, BFS và Dijkstra}
+\date{}
 
 \begin{document}
 
-% --- Slide 1: TRANG BÌA ---
+% Slide 1
 \begin{frame}
     \titlepage
 \end{frame}
 
-% --- Slide 2: MỤC LỤC ---
-\begin{frame}{Nội dung chính}
-    \tableofcontents
-\end{frame}
-
-% ==========================================
-% PHẦN 3: THUẬT TOÁN
-% ==========================================
-\section{Giới thiệu các thuật toán}
-
-% --- Slide 3: Intro Phần 3 ---
-\begin{frame}{Phần 3: Các thuật toán duyệt đồ thị \& Đường đi}
-    \begin{center}
-        \Large \textbf{Nội dung trọng tâm}
-    \end{center}
-    \vspace{0.5cm}
-    \begin{itemize}
-        \item[$\bullet$] \textbf{BFS} (Breadth-First Search - Tìm kiếm theo chiều rộng)
-        \item[$\bullet$] \textbf{DFS} (Depth-First Search - Tìm kiếm theo chiều sâu)
-        \item[$\bullet$] \textbf{Dijkstra} (Tìm đường đi ngắn nhất)
-    \end{itemize}
-    
-    \vspace{0.5cm}
-    \begin{block}{Mục tiêu}
-        Hiểu rõ tư tưởng cốt lõi của từng thuật toán thông qua minh họa \textbf{step-by-step} trực quan trên các đồ thị cơ bản.
-    \end{block}
-\end{frame}
-
-\section{BFS - Tìm kiếm theo chiều rộng}
-
-% --- Slide 4: Khái niệm BFS ---
-\begin{frame}{1. Thuật toán BFS (Tìm kiếm theo chiều rộng)}
-    \begin{block}{Ý tưởng chính}
-        Duyệt đồ thị theo từng "lớp" (layer). Bắt đầu từ đỉnh gốc, thăm tất cả các đỉnh kề nó, sau đó mới tiến xuống lớp tiếp theo.
-    \end{block}
-    \vspace{0.3cm}
-    \begin{itemize}
-        \item \textbf{Cấu trúc dữ liệu sử dụng:} Hàng đợi (Queue - FIFO).
-        \item \textbf{Đặc điểm:} Đảm bảo tìm được đường đi ngắn nhất trên đồ thị không có trọng số.
-        \item \textbf{Quy trình:}
+% Slide 2
+\begin{frame}{Hôm nay nói gì?}
+    \begin{block}{3 thuật toán trong đồ thị:}
         \begin{enumerate}
-            \item Đưa đỉnh gốc vào Queue.
-            \item Lấy đỉnh ở đầu Queue ra thăm.
-            \item Đưa tất cả các đỉnh kề chưa thăm của nó vào cuối Queue.
-            \item Lặp lại bước 2 và 3 cho đến khi Queue rỗng.
+            \item \textbf{BFS}: Duyệt theo chiều rộng.
+            \item \textbf{DFS}: Duyệt theo chiều sâu.
+            \item \textbf{Dijkstra}: Tìm đường ngắn nhất.
         \end{enumerate}
-    \end{itemize}
+    \end{block}
 \end{frame}
 
-% --- Slide 5: BFS Step-by-step ---
-\begin{frame}{BFS: Minh họa Step-by-step}
-    \textbf{Bắt đầu từ đỉnh A.} Queue hiện tại: \only<1>{[A]}\only<2>{[B, C]}\only<3>{[C, D, E]}\only<4>{[D, E, F]}\only<5>{[E, F]}\only<6>{[F]}\only<7>{Rỗng}
-    \vspace{0.3cm}
+% Slide 3
+\begin{frame}{1. BFS - Duyệt theo chiều rộng}
+    \begin{block}{�� Đặc điểm}
+        \begin{itemize}
+            \item Quét theo từng lớp.
+            \item Gần $\rightarrow$ đi trước, xa $\rightarrow$ để sau.
+            \item Xài \textbf{Queue} (Hàng đợi - xếp hàng ai đến trước phục vụ trước "FIFO").
+        \end{itemize}
+    \end{block}
     
+    \begin{exampleblock}{�� Nhớ nhanh}
+        \textbf{BFS = Lan ra như sóng.}
+    \end{exampleblock}
+\end{frame}
+
+% Slide 4 - Hình minh họa BFS
+\begin{frame}{Minh họa BFS (Lan theo lớp)}
     \begin{center}
-    \begin{tikzpicture}[
-        node distance=2.2cm,
-        main node/.style={circle, draw, font=\bfseries, minimum size=8mm},
-        visited/.style={circle, draw, fill=OrangeAccent!60, font=\bfseries, minimum size=8mm},
-        queue/.style={circle, draw, fill=DarkTeal!30, font=\bfseries, minimum size=8mm}
-    ]
-        % Khai báo các node và trạng thái theo từng step
-        \node[main node]<1>[label=above:Start] (A) {A};
-        \node[visited]<2->[label=above:Start] (A) {A};
+    \begin{tikzpicture}[scale=0.9, node distance=1.5cm,
+        mynode/.style={circle, draw=myorange, fill=myorange!80, text=white, minimum size=0.8cm, font=\bfseries}]
         
-        \node[main node]<1> (B) [below left of=A] {B};
-        \node[queue]<2> (B) [below left of=A] {B};
-        \node[visited]<3-> (B) [below left of=A] {B};
-        
-        \node[main node]<1-2> (C) [below right of=A] {C};
-        \node[queue]<3> (C) [below right of=A] {C};
-        \node[visited]<4-> (C) [below right of=A] {C};
-        
-        \node[main node]<1-2> (D) [below left of=B] {D};
-        \node[queue]<3> (D) [below left of=B] {D};
-        \node[visited]<4-> (D) [below left of=B] {D};
+        % Các đỉnh
+        \node[mynode] (0) at (0,0) {0};
+        \node[mynode] (1) at (-2,-1.5) {1};
+        \node[mynode] (2) at (0,-1.5) {2};
+        \node[mynode] (3) at (2,-1.5) {3};
+        \node[mynode] (4) at (-3,-3) {4};
+        \node[mynode] (5) at (-1,-3) {5};
+        \node[mynode] (6) at (1,-3) {6};
+        \node[mynode] (7) at (3,-3) {7};
 
-        \node[main node]<1-2> (E) [below right of=B] {E};
-        \node[queue]<3-4> (E) [below right of=B] {E};
-        \node[visited]<5-> (E) [below right of=B] {E};
+        % Cạnh nối
+        \draw[thick, gray] (0)--(1); \draw[thick, gray] (0)--(2); \draw[thick, gray] (0)--(3);
+        \draw[thick, gray] (1)--(4); \draw[thick, gray] (1)--(5);
+        \draw[thick, gray] (2)--(6); \draw[thick, gray] (3)--(7);
 
-        \node[main node]<1-3> (F) [below of=C] {F};
-        \node[queue]<4-5> (F) [below of=C] {F};
-        \node[visited]<6-> (F) [below of=C] {F};
+        % Ghi chú lớp
+        \node[left, myteal, font=\bfseries] at (-3,0) {Layer 0};
+        \node[left, myteal, font=\bfseries] at (-3,-1.5) {Layer 1};
+        \node[left, myteal, font=\bfseries] at (-4,-3) {Layer 2};
 
-        % Khai báo các cạnh
-        \path[draw, thick]
-        (A) edge (B) (A) edge (C)
-        (B) edge (D) (B) edge (E)
-        (C) edge (F);
+        % Mũi tên chỉ thứ tự
+        \draw[->, dashed, myteal, thick] (0) edge[bend right=20] (1);
+        \draw[->, dashed, myteal, thick] (1) edge (2);
+        \draw[->, dashed, myteal, thick] (2) edge (3);
+        \draw[->, dashed, myteal, thick] (3) edge[bend left=20] (4);
+        \draw[->, dashed, myteal, thick] (4) edge (5);
+        \draw[->, dashed, myteal, thick] (5) edge (6);
+        \draw[->, dashed, myteal, thick] (6) edge (7);
     \end{tikzpicture}
     \end{center}
-    
-    \begin{itemize}
-        \item<1-> \textbf{Bước 1:} Thăm A. Kề A là B, C. Đưa B, C vào Queue.
-        \item<2-> \textbf{Bước 2:} Lấy B. Thăm B. Đưa D, E (kề B) vào Queue.
-        \item<3-> \textbf{Bước 3:} Lấy C. Thăm C. Đưa F (kề C) vào Queue.
-        \item<4-> \textbf{Bước 4,5,6:} Lần lượt lấy D, E, F ra khỏi Queue và thăm. Đồ thị duyệt xong!
-    \end{itemize}
-\end{frame}
-
-% --- Slide 6: Ứng dụng BFS ---
-\begin{frame}{Ứng dụng của thuật toán BFS}
-    \begin{itemize}
-        \item \textbf{Tìm đường đi ngắn nhất:} Trên đồ thị không trọng số (ví dụ: giải mê cung, số bước di chuyển ít nhất của quân mã trên bàn cờ vua).
-        \item \textbf{Mạng xã hội:} Tìm những người bạn chung, gợi ý kết bạn (bạn bè bậc 1, bậc 2,...).
-        \item \textbf{Hệ thống mạng (Broadcasting):} Gửi gói tin (packet) đến tất cả các node trong mạng.
-        \item \textbf{Web Crawler:} Các công cụ tìm kiếm (như Google) dùng thuật toán tương tự BFS để thu thập các trang web theo từng cấp độ liên kết.
-    \end{itemize}
-\end{frame}
-
-\section{DFS - Tìm kiếm theo chiều sâu}
-
-% --- Slide 7: Khái niệm DFS ---
-\begin{frame}{2. Thuật toán DFS (Tìm kiếm theo chiều sâu)}
-    \begin{block}{Ý tưởng chính}
-        Khám phá các nhánh sâu nhất có thể trước khi quay lui (backtracking) để khám phá các nhánh khác.
+    \begin{block}{}
+        \centering \textbf{Thứ tự đi:} $0 \rightarrow 1 \rightarrow 2 \rightarrow 3 \rightarrow 4 \rightarrow 5 \rightarrow 6 \rightarrow 7$
     \end{block}
-    \vspace{0.3cm}
-    \begin{itemize}
-        \item \textbf{Cấu trúc dữ liệu sử dụng:} Ngăn xếp (Stack - LIFO) hoặc sử dụng Đệ quy (Recursion).
-        \item \textbf{Quy trình cơ bản:}
-        \begin{enumerate}
-            \item Thăm một đỉnh kề chưa được thăm, đánh dấu đã thăm.
-            \item Tiếp tục đi sâu vào đỉnh kề của đỉnh vừa thăm.
-            \item Nếu gặp "ngõ cụt" (không còn đỉnh kề nào chưa thăm), quay lui (backtrack) về đỉnh trước đó.
-            \item Lặp lại đến khi duyệt hết mọi đỉnh.
-        \end{enumerate}
-    \end{itemize}
 \end{frame}
 
-% --- Slide 8: DFS Step-by-step ---
-\begin{frame}{DFS: Minh họa Step-by-step}
-    \textbf{Bắt đầu từ đỉnh A.} Trạng thái duyệt: Đi sâu rồi quay lui.
-    \vspace{0.3cm}
+% Slide 5
+\begin{frame}{BFS dùng để làm gì?}
+    \begin{block}{Ứng dụng cực thực tế}
+        \begin{itemize}
+            \item Tìm đường đi ít bước nhất (đồ thị không trọng số).
+            \item Gợi ý kết bạn chung (cách nhau 1-2 lớp bạn bè).
+            \item Thuật toán loang (cái xô đổ màu trong Paint á).
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+% Slide 6
+\begin{frame}{2. DFS - Duyệt theo chiều sâu}
+    \begin{block}{�� Đặc điểm}
+        \begin{itemize}
+            \item Cắm đầu đi 1 đường tới cùng.
+            \item Bí đường / Hết đường $\rightarrow$ Quay xe lại bước trước(lấy lại đỉnh đã đi trước đó từ hàng đợi để xử lý tiếp các nhánh khác).
+            \item Xài \textbf{Đệ quy} hoặc \textbf{Stack} (Ngăn xếp).
+        \end{itemize}
+    \end{block}
     
+    \begin{exampleblock}{�� Nhớ nhanh}
+        \textbf{DFS = Đi sâu rồi quay lại.}
+    \end{exampleblock}
+\end{frame}
+
+% Slide 7 - Hình minh họa DFS
+\begin{frame}{Minh họa DFS (Đi tới cùng rồi lùi lại)}
     \begin{center}
-    \begin{tikzpicture}[
-        node distance=2.2cm,
-        main node/.style={circle, draw, font=\bfseries, minimum size=8mm},
-        visited/.style={circle, draw, fill=DarkTeal!60, text=white, font=\bfseries, minimum size=8mm},
-        active/.style={circle, draw, fill=OrangeAccent!60, font=\bfseries, minimum size=8mm}
-    ]
-        \node[main node]<1>[label=above:Start] (A) {A};
-        \node[active]<2> (A) {A}; \node[visited]<3-> (A) {A};
+    \begin{tikzpicture}[scale=1, node distance=1.5cm,
+        mynode/.style={circle, draw=myteal, fill=myteal, text=white, minimum size=0.8cm, font=\bfseries}]
         
-        \node[main node]<1-2> (B) [below left of=A] {B};
-        \node[active]<3> (B) {B}; \node[visited]<4-> (B) {B};
-        
-        \node[main node]<1-7> (C) [below right of=A] {C};
-        \node[active]<8> (C) {C}; \node[visited]<9-> (C) {C};
-        
-        \node[main node]<1-3> (D) [below left of=B] {D};
-        \node[active]<4> (D) {D}; \node[visited]<5-> (D) {D};
+        % Cây DFS
+        \node[mynode] (1) at (0,0) {1};
+        \node[mynode] (2) at (-1.5,-1.5) {2};
+        \node[mynode] (3) at (1.5,-1.5) {3};
+        \node[mynode] (4) at (-2.5,-3) {4};
+        \node[mynode] (5) at (-0.5,-3) {5};
 
-        \node[main node]<1-5> (E) [below right of=B] {E};
-        \node[active]<6> (E) {E}; \node[visited]<7-> (E) {E};
-
-        \node[main node]<1-8> (F) [below of=C] {F};
-        \node[active]<9> (F) {F}; \node[visited]<10-> (F) {F};
-
-        \path[draw, thick]
-        (A) edge (B) (A) edge (C)
-        (B) edge (D) (B) edge (E)
-        (C) edge (F);
+        % Cạnh nối
+        \draw[thick, gray] (1)--(2);
+        \draw[thick, gray] (1)--(3);
+        \draw[thick, gray] (2)--(4);
+        \draw[thick, gray] (2)--(5);
     \end{tikzpicture}
     \end{center}
-    
-    \begin{itemize}
-        \item<1-> \textbf{Đường đi:} A $\rightarrow$ B $\rightarrow$ D $\rightarrow$ (Hết đường, quay lui B) $\rightarrow$ E $\rightarrow$ (Quay lui B) $\rightarrow$ (Quay lui A) $\rightarrow$ C $\rightarrow$ F.
-        \item<10-> \textbf{Thứ tự duyệt xong:} A, B, D, E, C, F.
-    \end{itemize}
+    \begin{exampleblock}{}
+        \centering \textbf{Thứ tự đi:} $1 \rightarrow 2 \rightarrow 4 \rightarrow \text{(quay lại 2)} \rightarrow 5 \rightarrow \text{(quay lại 1)} \rightarrow 3$
+    \end{exampleblock}
 \end{frame}
 
-% --- Slide 9: So sánh BFS và DFS ---
-\begin{frame}{So sánh BFS và DFS}
-    \begin{table}[]
-        \centering
-        \renewcommand{\arraystretch}{1.5}
-        \begin{tabular}{|p{3cm}|p{4cm}|p{4cm}|}
-        \hline
-        \rowcolor{DarkTeal}
-        \textcolor{white}{\textbf{Tiêu chí}} & \textcolor{white}{\textbf{BFS}} & \textcolor{white}{\textbf{DFS}} \\ \hline
-        \textbf{Cấu trúc dữ liệu} & Queue (Hàng đợi) & Stack (Ngăn xếp) / Đệ quy \\ \hline
-        \textbf{Chiến lược} & Duyệt theo chiều ngang (Lớp) & Duyệt theo chiều sâu (Nhánh) \\ \hline
-        \textbf{Ưu điểm} & Tìm được đường đi ngắn nhất (đồ thị không trọng số) & Tốn ít bộ nhớ hơn, code đệ quy ngắn gọn \\ \hline
-        \textbf{Nhược điểm} & Tốn nhiều bộ nhớ để lưu trữ Queue ở các tầng rộng & Không đảm bảo đường đi tìm được là ngắn nhất \\ \hline
-        \end{tabular}
-    \end{table}
+% Slide 8
+\begin{frame}{ BFS vs DFS khác nhau chổ nào?}
+    \begin{block}{Khác nhau chỗ nào?}
+        \begin{itemize}
+            \item \textbf{Cách đi:} BFS dàn hàng ngang, DFS chọc thẳng 1 nhánh.
+            \item \textbf{Lưu trữ:} BFS xài Queue (khá tốn RAM), DFS xài Stack/Đệ quy (nhẹ máy hơn).
+            \item \textbf{Code:} DFS đệ quy viết siêu ngắn, mấy dòng là xong.
+        \end{itemize}
+    \end{block}
 \end{frame}
 
-\section{Dijkstra - Đường đi ngắn nhất}
+% Slide 9
+\begin{frame}{Nên dùng cái nào?}
+    \begin{exampleblock}{Tùy tình hình:}
+        \begin{itemize}
+            \item Cần tìm đường nhanh nhất, đích ở gần $\rightarrow$ Dùng \textbf{BFS}.
+            \item Cây to đùng, sợ tốn bộ nhớ $\rightarrow$ Chơi \textbf{DFS}.
+            \item Cứ bắt duyệt hết mọi đỉnh $\rightarrow$ Xài cái nào quen tay thì viết, thường DFS lẹ hơn.
+        \end{itemize}
+    \end{exampleblock}
+\end{frame}
 
-% --- Slide 10: Khái niệm Dijkstra ---
+% Slide 10
 \begin{frame}{3. Thuật toán Dijkstra}
-    \begin{block}{Mục đích}
-        Tìm đường đi ngắn nhất từ một đỉnh nguồn (source) đến tất cả các đỉnh còn lại trong đồ thị. \textbf{Điều kiện:} Trọng số các cạnh phải không âm ($\ge 0$).
-    \end{block}
-    \vspace{0.3cm}
-    \textbf{Ý tưởng Step-by-step:}
-    \begin{itemize}
-        \item \textbf{Khởi tạo:} Khoảng cách từ điểm đầu đến chính nó là $0$, đến các điểm khác là $\infty$.
-        \item \textbf{Cập nhật (Relaxation):} Lặp lại các bước sau:
-        \begin{enumerate}
-            \item Chọn đỉnh $u$ có khoảng cách nhỏ nhất chưa được cố định.
-            \item Xét các đỉnh kề $v$ của $u$: Nếu khoảng cách hiện tại đến $v$ lớn hơn khoảng cách đi qua $u$, ta tiến hành cập nhật lại đường đi ngắn hơn.
-            \item Đánh dấu $u$ đã cố định xong khoảng cách.
-        \end{enumerate}
-    \end{itemize}
-\end{frame}
-
-% --- Slide 11: Dijkstra Step 0 ---
-\begin{frame}{Dijkstra: Đồ thị minh họa (Bước 0 - Khởi tạo)}
-    \textbf{Yêu cầu:} Tìm đường đi ngắn nhất từ \textbf{A} đến các đỉnh.
-    \vspace{0.3cm}
-    
-    \begin{center}
-    \begin{tikzpicture}[
-        node distance=3cm,
-        main node/.style={circle, draw, font=\bfseries, minimum size=10mm},
-        edge label/.style={fill=white, inner sep=1pt, font=\small}
-    ]
-        \node[main node, fill=OrangeAccent!30] (A) {A ($0$)};
-        \node[main node] (B) [above right of=A] {B ($\infty$)};
-        \node[main node] (C) [below right of=A] {C ($\infty$)};
-        \node[main node] (D) [below right of=B] {D ($\infty$)};
-
-        \path[draw, thick, ->] (A) edge node[edge label] {4} (B);
-        \path[draw, thick, ->] (A) edge node[edge label] {1} (C);
-        \path[draw, thick, ->] (B) edge node[edge label] {1} (D);
-        \path[draw, thick, ->] (C) edge node[edge label] {2} (B);
-        \path[draw, thick, ->] (C) edge node[edge label] {5} (D);
-    \end{tikzpicture}
-    \end{center}
-    
-    \begin{itemize}
-        \item Khởi tạo khoảng cách: $dist[A] = 0$. Các đỉnh khác là $\infty$.
-        \item Tập đỉnh đã cố định: \textbf{Rỗng}.
-    \end{itemize}
-\end{frame}
-
-% --- Slide 12: Dijkstra Step 1 ---
-\begin{frame}{Dijkstra: Bước 1 (Chọn đỉnh A)}
-    \begin{center}
-    \begin{tikzpicture}[
-        node distance=3cm,
-        main node/.style={circle, draw, font=\bfseries, minimum size=10mm},
-        fixed node/.style={circle, draw, fill=DarkTeal!80, text=white, font=\bfseries, minimum size=10mm},
-        edge label/.style={fill=white, inner sep=1pt, font=\small}
-    ]
-        \node[fixed node] (A) {A ($0$)};
-        \node[main node, fill=yellow!40] (B) [above right of=A] {B ($4$)};
-        \node[main node, fill=yellow!40] (C) [below right of=A] {C ($1$)};
-        \node[main node] (D) [below right of=B] {D ($\infty$)};
-
-        \path[draw, thick, ->, OrangeAccent] (A) edge node[edge label] {4} (B);
-        \path[draw, thick, ->, OrangeAccent] (A) edge node[edge label] {1} (C);
-        \path[draw, thick, ->] (B) edge node[edge label] {1} (D);
-        \path[draw, thick, ->] (C) edge node[edge label] {2} (B);
-        \path[draw, thick, ->] (C) edge node[edge label] {5} (D);
-    \end{tikzpicture}
-    \end{center}
-    
-    \begin{itemize}
-        \item Chọn \textbf{A} (có $dist=0$ nhỏ nhất). Cố định A.
-        \item Cập nhật kề của A:
+    \begin{block}{�� Đặc điểm}
         \begin{itemize}
-            \item $dist[B] = \min(\infty, 0 + 4) = 4$.
-            \item $dist[C] = \min(\infty, 0 + 1) = 1$.
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-
-% --- Slide 13: Dijkstra Step 2 ---
-\begin{frame}{Dijkstra: Bước 2 (Chọn đỉnh C)}
-    \begin{center}
-    \begin{tikzpicture}[
-        node distance=3cm,
-        main node/.style={circle, draw, font=\bfseries, minimum size=10mm},
-        fixed node/.style={circle, draw, fill=DarkTeal!80, text=white, font=\bfseries, minimum size=10mm},
-        edge label/.style={fill=white, inner sep=1pt, font=\small}
-    ]
-        \node[fixed node] (A) {A ($0$)};
-        \node[main node, fill=yellow!40] (B) [above right of=A] {B ($3$)};
-        \node[fixed node] (C) [below right of=A] {C ($1$)};
-        \node[main node, fill=yellow!40] (D) [below right of=B] {D ($6$)};
-
-        \path[draw, thick, ->] (A) edge node[edge label] {4} (B);
-        \path[draw, thick, ->] (A) edge node[edge label] {1} (C);
-        \path[draw, thick, ->] (B) edge node[edge label] {1} (D);
-        \path[draw, thick, ->, OrangeAccent] (C) edge node[edge label] {2} (B);
-        \path[draw, thick, ->, OrangeAccent] (C) edge node[edge label] {5} (D);
-    \end{tikzpicture}
-    \end{center}
-    
-    \begin{itemize}
-        \item Trong các đỉnh chưa cố định \{B(4), C(1), D($\infty$)\}, chọn \textbf{C} nhỏ nhất. Cố định C.
-        \item Cập nhật kề của C:
-        \begin{itemize}
-            \item $dist[B] = \min(4, 1 + 2) = 3$ (Cập nhật đường đi tốt hơn qua C!).
-            \item $dist[D] = \min(\infty, 1 + 5) = 6$.
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-
-% --- Slide 14: Dijkstra Step 3 ---
-\begin{frame}{Dijkstra: Bước 3 (Chọn đỉnh B và hoàn thiện)}
-    \begin{center}
-    \begin{tikzpicture}[
-        node distance=3cm,
-        main node/.style={circle, draw, font=\bfseries, minimum size=10mm},
-        fixed node/.style={circle, draw, fill=DarkTeal!80, text=white, font=\bfseries, minimum size=10mm},
-        edge label/.style={fill=white, inner sep=1pt, font=\small}
-    ]
-        \node[fixed node] (A) {A ($0$)};
-        \node[fixed node] (B) [above right of=A] {B ($3$)};
-        \node[fixed node] (C) [below right of=A] {C ($1$)};
-        \node[fixed node] (D) [below right of=B] {D ($4$)};
-
-        \path[draw, thick, ->] (A) edge node[edge label] {4} (B);
-        \path[draw, thick, ->] (A) edge node[edge label] {1} (C);
-        \path[draw, thick, ->, OrangeAccent] (B) edge node[edge label] {1} (D);
-        \path[draw, thick, ->] (C) edge node[edge label] {2} (B);
-        \path[draw, thick, ->] (C) edge node[edge label] {5} (D);
-    \end{tikzpicture}
-    \end{center}
-    
-    \begin{itemize}
-        \item Chưa cố định: \{B(3), D(6)\}. Chọn \textbf{B}. Cố định B.
-        \item Cập nhật kề của B: $dist[D] = \min(6, 3 + 1) = 4$.
-        \item Cuối cùng chọn \textbf{D}. Thuật toán kết thúc!
-        \item \textbf{Kết quả khoảng cách ngắn nhất từ A:} B=3, C=1, D=4.
-    \end{itemize}
-\end{frame}
-
-% --- Slide 15: TỔNG KẾT ---
-\begin{frame}{Tổng kết Phần 3}
-    \begin{block}{Tóm tắt kiến thức}
-        \begin{itemize}
-            \item \textbf{BFS:} Lan tỏa theo chiều rộng, dùng Queue, tốt cho đồ thị không trọng số.
-            \item \textbf{DFS:} Đào sâu các nhánh, dùng Stack/Đệ quy, kiểm tra chu trình và thành phần liên thông.
-            \item \textbf{Dijkstra:} Thuật toán tối ưu tìm đường đi ngắn nhất (cạnh không âm), dựa trên kỹ thuật Greedy (Tham lam).
+            \item Có trọng số (đoạn đường có độ dài ngắn khác nhau).
+            \item Kiểu "Tham lam": Cứ me đỉnh nào đang gần nhất là lụm.
         \end{itemize}
     \end{block}
     
-    \vspace{1cm}
+    \begin{exampleblock}{�� Nhớ nhanh}
+        \textbf{Dijkstra = Chọn đường ngắn nhất từng bước.}
+    \end{exampleblock}
+\end{frame}
+
+% Slide 11 - Hình minh họa Dijkstra
+\begin{frame}{Minh họa Dijkstra (Đồ thị có trọng số)}
     \begin{center}
-        \Large \textbf{Cảm ơn thầy cô và các bạn đã lắng nghe!} \\
-        \normalsize \textit{Chuyển sang Phần 4: Các bài toán hay...}
+    % Đồ thị minh họa đơn giản hóa để dễ nhìn trên slide
+    \begin{tikzpicture}[scale=0.9,
+        mynode/.style={circle, draw=black, thick, fill=white, minimum size=0.7cm, font=\bfseries},
+        startnode/.style={circle, draw=black, thick, fill=myorange!50, minimum size=0.7cm, font=\bfseries},
+        endnode/.style={circle, draw=black, thick, fill=green!40, minimum size=0.7cm, font=\bfseries}]
+        
+        \node[startnode] (1) at (0, 1.5) {1};
+        \node[mynode] (2) at (2, 3) {2};
+        \node[mynode] (3) at (2, 0) {3};
+        \node[mynode] (4) at (5, 3) {4};
+        \node[mynode] (5) at (5, 0) {5};
+        \node[endnode] (6) at (7, 1.5) {9};
+        
+        % Cạnh thường
+        \draw[thick] (1) -- node[above left] {2} (2);
+        \draw[thick] (1) -- node[below left] {5} (3);
+        \draw[thick] (2) -- node[right] {1} (3);
+        \draw[thick] (2) -- node[above] {6} (4);
+        \draw[thick] (3) -- node[above] {2} (5);
+        \draw[thick] (4) -- node[right] {2} (5);
+        \draw[thick] (4) -- node[above right] {3} (6);
+        \draw[thick] (5) -- node[below right] {1} (6);
+        
+        % Đường đi ngắn nhất (Màu Đỏ)
+        \draw[ultra thick, red, ->] (1) -- (2);
+        \draw[ultra thick, red, ->] (2) -- (3);
+        \draw[ultra thick, red, ->] (3) -- (5);
+        \draw[ultra thick, red, ->] (5) -- (6);
+    \end{tikzpicture}
     \end{center}
+    \begin{block}{}
+        \centering 
+        Đường đi ngắn nhất từ \textbf{1} tới \textbf{9} là đi theo mũi tên đỏ:\\
+        $1 \rightarrow 2 \rightarrow 3 \rightarrow 5 \rightarrow 9$ (Tổng chi phí = $2 + 1 + 2 + 1 = 6$)
+    \end{block}
+\end{frame}
+
+% Slide 12
+\begin{frame}{Sao không dùng BFS cho lẹ mà phải Dijkstra?}
+    \begin{block}{Tại vì thực tế nó khác}
+        \begin{itemize}
+            \item BFS coi đường nào cũng như nhau (đi 1 bước).
+            \item Nhưng thực tế đường có đường 5km, có đường 20km. 
+            \item BFS thấy ít bước hơn là đi, dễ đâm đầu vào cái đường 20km $\rightarrow$ \textbf{Toang!}
+            \item Nên mới cần Dijkstra để tính tổng khoảng cách cho chuẩn.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+% Slide 13
+\begin{frame}{⚡ Tóm tắt }
+    \begin{exampleblock}{Chỉ cần nhớ 3 câu này đi thi:}
+        \vspace{0.3cm}
+        \large
+        \begin{itemize}
+            \item \textbf{BFS} $\rightarrow$ Lan theo lớp
+            \vspace{0.2cm}
+            \item \textbf{DFS} $\rightarrow$ Đi sâu
+            \vspace{0.2cm}
+            \item \textbf{Dijkstra} $\rightarrow$ Tối ưu khoảng cách
+        \end{itemize}
+        \vspace{0.3cm}
+    \end{exampleblock}
 \end{frame}
 
 \end{document}
