@@ -1,0 +1,345 @@
+\documentclass[10pt, xcolor={dvipsnames}]{beamer}
+
+%========================
+% CẤU HÌNH HỆ THỐNG
+%========================
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning, calc, shapes.geometric, shadows, patterns}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, shadows, themes}
+
+%========================
+% TÔNG MÀU & STYLE GỐC
+%========================
+\usetheme{Madrid}
+\definecolor{mainblue}{RGB}{0, 102, 104}
+\definecolor{lightorange}{RGB}{255, 140, 0}
+
+\setbeamercolor{palette primary}{bg=mainblue, fg=white}
+\setbeamercolor{palette secondary}{bg=lightorange, fg=white}
+\setbeamercolor{structure}{fg=mainblue}
+
+\newtcolorbox{detailbox}[2]{
+    enhanced, colback=white, colframe=#1, title=#2,
+    fonttitle=\bfseries, arc=3pt, boxrule=1pt, shadow={1mm}{-1mm}{0mm}{black!10}
+}
+
+\title{LÝ THUYẾT ĐỒ THỊ}
+\subtitle{Phần 2: Hệ thống Lý thuyết Cơ sở}
+\author{Tung Tung Tung Sahur}
+\date{Học kỳ II - 2026}
+
+\begin{document}
+
+\frame{\titlepage}
+
+%--- SLIDE 1 ---
+\begin{frame}{2.1. Đơn đồ thị vô hướng}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+            \begin{itemize}
+                \item Không có cạnh song song.
+                \item Không có khuyên (loop).
+                \item Một cặp đỉnh chỉ có tối đa 1 cạnh nối.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \centering
+            \begin{tikzpicture}[every node/.style={circle,draw=mainblue,thick}]
+                \node (1) at (0,1) {1}; \node (2) at (1.5,1) {2};
+                \node (3) at (0.75,0) {3};
+                \draw (1)--(2) (2)--(3) (3)--(1);
+            \end{tikzpicture}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+%--- SLIDE 2 ---
+\begin{frame}{2.2. Đa đồ thị (Multigraph)}
+    \centering
+    \begin{tikzpicture}[every node/.style={circle,draw=mainblue,thick}]
+        \node (1) {1}; \node (2) [right=of 1, xshift=1cm] {2};
+        \draw (1) to [bend left=45] (2); 
+        \draw (1) to [bend right=45] (2);
+        \draw (1) -- (2);
+    \end{tikzpicture}
+    \begin{detailbox}{lightorange}{Định nghĩa}
+        Cho phép nhiều cạnh nối giữa hai đỉnh (cạnh song song).
+    \end{detailbox}
+\end{frame}
+
+%--- SLIDE 3 ---
+\begin{frame}{2.3. Giả đồ thị (Pseudograph)}
+    \centering
+    \begin{tikzpicture}[every node/.style={circle,draw=mainblue,thick}]
+        \node (1) {1}; \node (2) [right=of 1, xshift=1cm] {2};
+        \draw (1) -- (2);
+        \draw (1) to [loop left] (1);
+    \end{tikzpicture}
+    \begin{detailbox}{mainblue}{Đặc điểm}
+        Là đa đồ thị nhưng cho phép tồn tại \textbf{khuyên} (cạnh nối 1 đỉnh với chính nó).
+    \end{detailbox}
+\end{frame}
+
+%--- SLIDE 4 ---
+\begin{frame}{2.4. Đồ thị có hướng (Directed Graph)}
+    \centering
+    \begin{tikzpicture}[every node/.style={circle,draw=mainblue,thick}, >={Stealth}]
+        \node (1) {1}; \node (2) [right=of 1, xshift=1cm] {2};
+        \draw[->] (1) to [bend left] (2);
+        \draw[->] (2) to [bend left] (1);
+    \end{tikzpicture}
+    \begin{itemize}
+        \item Cạnh có hướng gọi là \textbf{cung}.
+        \item Thứ tự cặp đỉnh $(u,v)$ là quan trọng.
+    \end{itemize}
+\end{frame}
+
+%--- SLIDE 5 ---
+\begin{frame}{2.5. Đồ thị có trọng số (Weighted Graph)}
+    \centering
+    \begin{tikzpicture}[every node/.style={circle,draw=mainblue,thick}]
+        \node (A) {A}; \node (B) [right=of A, xshift=1cm] {B};
+        \draw (A) -- node[above, blue] {\textbf{15km}} (B);
+    \end{tikzpicture}
+    \begin{detailbox}{lightorange}{Ứng dụng}
+        Trọng số biểu thị khoảng cách, chi phí hoặc thời gian di chuyển giữa các đỉnh.
+    \end{detailbox}
+\end{frame}
+
+%--- SLIDE 6 ---
+\begin{frame}{2.6. Khái niệm Kề (Adjacent)}
+    \centering
+    \begin{tikzpicture}[every node/.style={circle,draw=mainblue,thick}]
+        \node (1) {u}; \node (2) [right=of 1] {v}; \node (3) [below=of 2] {w};
+        \draw (1) -- (2);
+    \end{tikzpicture}
+    \begin{itemize}
+        \item $u$ và $v$ kề nhau vì có cạnh nối $(u,v)$.
+        \item $v$ và $w$ không kề nhau.
+    \end{itemize}
+\end{frame}
+
+%--- SLIDE 7 ---
+\begin{frame}{2.7. Khái niệm Liên thuộc (Incident)}
+    \centering
+    \begin{tikzpicture}[every node/.style={circle,draw=mainblue,thick}]
+        \node (1) {u}; \node (2) [right=of 1] {v};
+        \draw (1) -- node[above, red] {$e$} (2);
+    \end{tikzpicture}
+    \begin{itemize}
+        \item Cạnh $e$ liên thuộc với đỉnh $u$ và đỉnh $v$.
+        \item Đỉnh $u, v$ là các \textbf{đầu mút} của cạnh $e$.
+    \end{itemize}
+\end{frame}
+
+%--- SLIDE 8 ---
+\begin{frame}{2.8. Bậc của đỉnh (Degree)}
+    \begin{detailbox}{mainblue}{Định nghĩa}
+        $d(v)$ là số cạnh liên thuộc với đỉnh $v$.
+    \end{detailbox}
+    \centering
+    \begin{tikzpicture}[every node/.style={circle,draw=mainblue,thick}]
+        \node (1) {1}; \node (2) [right=of 1] {2}; \node (3) [below=of 1] {3};
+        \draw (1)--(2) (1)--(3);
+    \end{tikzpicture}
+    \\ $d(1)=2, d(2)=1, d(3)=1$.
+\end{frame}
+
+%--- SLIDE 9 ---
+\begin{frame}{2.9. Đỉnh treo và Đỉnh cô lập}
+    \begin{itemize}
+        \item \textbf{Đỉnh treo:} Bậc bằng 1.
+        \item \textbf{Đỉnh cô lập:} Bậc bằng 0.
+    \end{itemize}
+    \centering
+    \begin{tikzpicture}[every node/.style={circle,draw=mainblue,thick}]
+        \node (1) {Treo}; \node (2) [right=of 1] {u}; \node (3) [right=of 2, xshift=1cm] {Cô lập};
+        \draw (1)--(2);
+    \end{tikzpicture}
+\end{frame}
+
+%--- SLIDE 10 ---
+\begin{frame}{2.10. Định lý Bắt tay}
+    \begin{alertblock}{Định lý Handshaking}
+        $\sum_{v \in V} d(v) = 2|E|$
+    \end{alertblock}
+    \vspace{0.3cm}
+    \textit{Hệ quả: Tổng bậc của các đỉnh luôn là số chẵn. Do đó, số đỉnh có bậc lẻ phải là một số chẵn.}
+\end{frame}
+
+%--- SLIDE 11 ---
+\begin{frame}{2.11. Bán bậc trong đồ thị có hướng}
+    \begin{itemize}
+        \item \textbf{Bán bậc vào ($d^-$):} Số cung đi vào đỉnh.
+        \item \textbf{Bán bậc ra ($d^+$):} Số cung đi ra khỏi đỉnh.
+    \end{itemize}
+    \centering
+    \begin{tikzpicture}[every node/.style={circle,draw=mainblue,thick}, >={Stealth}]
+        \node (1) {v}; \draw[<-] (1) -- ++(1,1); \draw[->] (1) -- ++(1,-1);
+    \end{tikzpicture}
+    \\ $\sum d^-(v) = \sum d^+(v) = |E|$
+\end{frame}
+
+%--- SLIDE 12 ---
+\begin{frame}{2.12. Ma trận kề (Adjacency Matrix)}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \[ A = \begin{pmatrix} 0 & 1 & 0 \\ 1 & 0 & 1 \\ 0 & 1 & 0 \end{pmatrix} \]
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=0.7]
+                \node[draw,circle](1){1}; \node[draw,circle,right=of 1](2){2};
+                \node[draw,circle,right=of 2](3){3}; \draw (1)--(2)--(3);
+            \end{tikzpicture}
+        \end{column}
+    \end{columns}
+    \small $A[i][j]=1$ nếu đỉnh $i$ và $j$ kề nhau.
+\end{frame}
+
+%--- SLIDE 13 ---
+\begin{frame}{2.13. Danh sách kề (Adjacency List)}
+    \begin{detailbox}{mainblue}{Cấu trúc}
+        1: 2 \\
+        2: 1, 3 \\
+        3: 2
+    \end{detailbox}
+    \begin{itemize}
+        \item Tiết kiệm bộ nhớ cho đồ thị thưa.
+        \item Dễ dàng duyệt các đỉnh kề.
+    \end{itemize}
+\end{frame}
+
+%--- SLIDE 14 ---
+\begin{frame}{2.14. Đường đi (Path)}
+    Dãy các đỉnh liên tiếp nối với nhau bởi các cạnh.
+    \centering
+    \begin{tikzpicture}
+        \node[circle,draw](1){v0}; \node[circle,draw,right=of 1](2){v1}; \node[circle,draw,right=of 2](3){v2};
+        \draw[->,thick,red] (1)--(2); \draw[->,thick,red] (2)--(3);
+    \end{tikzpicture}
+    \\ Độ dài đường đi là số cạnh trên dãy đó.
+\end{frame}
+
+%--- SLIDE 15 ---
+\begin{frame}{2.15. Chu trình (Cycle)}
+    \centering
+    \begin{tikzpicture}[every node/.style={circle,draw}]
+        \node (1) at (0,1) {1}; \node (2) at (1,1) {2}; \node (3) at (0.5,0) {3};
+        \draw[thick, orange] (1)--(2)--(3)--(1);
+    \end{tikzpicture}
+    \begin{itemize}
+        \item Đỉnh bắt đầu trùng với đỉnh kết thúc.
+        \item Không có cạnh nào bị lặp lại.
+    \end{itemize}
+\end{frame}
+
+%--- SLIDE 16 ---
+\begin{frame}{2.16. Tính liên thông}
+    Đồ thị được gọi là \textbf{liên thông} nếu luôn có đường đi giữa hai đỉnh bất kỳ.
+    \centering
+    \begin{tikzpicture}[scale=0.6]
+        \node[circle,draw](1) at (0,0){}; \node[circle,draw](2) at (1,1){}; \node[circle,draw](3) at (2,0){};
+        \draw (1)--(2)--(3)--(1);
+    \end{tikzpicture}
+\end{frame}
+
+%--- SLIDE 17 ---
+\begin{frame}{2.17. Thành phần liên thông}
+    Nếu đồ thị không liên thông, nó sẽ rã thành các cụm nhỏ gọi là thành phần liên thông.
+    \centering
+    \begin{tikzpicture}
+        \draw (0,0) circle (0.5); \node at (0,0) {C1};
+        \draw (2,0) circle (0.5); \node at (2,0) {C2};
+    \end{tikzpicture}
+\end{frame}
+
+%--- SLIDE 18 ---
+\begin{frame}{2.18. Đồ thị đầy đủ $K_n$}
+    Mọi cặp đỉnh đều có cạnh nối.
+    \centering
+    \begin{tikzpicture}[scale=0.8]
+        \foreach \i in {1,...,5} \node[circle,draw] (n\i) at (\i*72:1) {};
+        \foreach \i in {1,...,5} \foreach \j in {\i,...,5} \draw (n\i)--(n\j);
+    \end{tikzpicture}
+    \\ Số cạnh $|E| = \frac{n(n-1)}{2}$.
+\end{frame}
+
+%--- SLIDE 19 ---
+\begin{frame}{2.19. Đồ thị vòng $C_n$}
+    \centering
+    \begin{tikzpicture}[scale=0.8]
+        \foreach \i in {1,...,6} \node[circle,draw] (n\i) at (\i*60:1) {};
+        \draw (n1)--(n2)--(n3)--(n4)--(n5)--(n6)--(n1);
+    \end{tikzpicture}
+    \\ Mọi đỉnh đều có bậc bằng 2.
+\end{frame}
+
+%--- SLIDE 20 ---
+\begin{frame}{2.20. Đồ thị phân đôi (Bipartite)}
+    \centering
+    \begin{tikzpicture}
+        \node[circle,draw,fill=blue!10] (u1) at (0,1.5) {}; \node[circle,draw,fill=blue!10] (u2) at (0,0.5) {};
+        \node[circle,draw,fill=orange!10] (v1) at (2,2) {}; \node[circle,draw,fill=orange!10] (v2) at (2,1) {}; \node[circle,draw,fill=orange!10] (v3) at (2,0) {};
+        \draw (u1)--(v1) (u1)--(v2) (u2)--(v2) (u2)--(v3);
+    \end{tikzpicture}
+    \\ Đỉnh chia thành 2 tập độc lập $U, V$.
+\end{frame}
+
+%--- SLIDE 21 ---
+\begin{frame}{2.21. Cây (Tree)}
+    \begin{detailbox}{mainblue}{Đặc điểm}
+        Đồ thị liên thông và không chứa chu trình.
+    \end{detailbox}
+    \centering
+    \begin{tikzpicture}[every node/.style={circle,draw}, level distance=1cm, sibling distance=1.5cm]
+        \node {} child { node {} } child { node {} child { node {} } };
+    \end{tikzpicture}
+\end{frame}
+
+%--- SLIDE 22 ---
+\begin{frame}{2.22. Tính chất của Cây}
+    \begin{itemize}
+        \item Một cây có $n$ đỉnh thì luôn có đúng $n-1$ cạnh.
+        \item Giữa 2 đỉnh bất kỳ có duy nhất một đường đi đơn.
+    \end{itemize}
+\end{frame}
+
+%--- SLIDE 23 ---
+\begin{frame}{2.23. Rừng (Forest)}
+    \centering
+    \begin{tikzpicture}[scale=0.5]
+        \node[draw,circle](1) at (0,0){}; \node[draw,circle](2) at (1,1){}; \draw (1)--(2);
+        \node[draw,circle](3) at (4,0){}; \node[draw,circle](4) at (5,1){}; \node[draw,circle](5) at (6,0){}; \draw (3)--(4)--(5);
+    \end{tikzpicture}
+    \\ Tập hợp các cây không giao nhau.
+\end{frame}
+
+%--- SLIDE 24 ---
+\begin{frame}{2.24. Đồ thị phẳng (Planar Graph)}
+    \centering
+    \begin{tikzpicture}
+        \node[draw,circle](1) at (0,0){}; \node[draw,circle](2) at (2,0){}; \node[draw,circle](3) at (1,1.5){};
+        \draw (1)--(2)--(3)--(1);
+    \end{tikzpicture}
+    \\ Có thể vẽ trên mặt phẳng mà không có cạnh nào cắt nhau.
+\end{frame}
+
+%--- SLIDE 25 ---
+\begin{frame}{2.25. Công thức Euler}
+    \begin{alertblock}{Định lý Euler}
+        $V - E + F = 2$
+    \end{alertblock}
+    \begin{itemize}
+        \item $V$: Số đỉnh.
+        \item $E$: Số cạnh.
+        \item $F$: Số mặt (bao gồm cả mặt ngoài vô hạn).
+    \end{itemize}
+\end{frame}
+
+\end{document}
