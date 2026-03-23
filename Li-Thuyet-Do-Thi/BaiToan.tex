@@ -79,12 +79,7 @@
                 Định lý 4 màu và các ứng dụng trong thực tế.
             \end{mainbox}
         \end{column}
-        \begin{column}{0.48\textwidth}
-            \vspace{0.2cm}
-            \begin{mainbox}{3. Mạng xã hội}
-                Phân tích ai là người "trung tâm" của đám đông.
-            \end{mainbox}
-        \end{column}
+     
     \end{columns}
 \end{frame}
 
@@ -122,27 +117,6 @@
             \end{highlightbox}
         \end{column}
     \end{columns}
-\end{frame}
-
-% --- CHI TIẾT BÀI TOÁN 3 ---
-\begin{frame}{3. Bài toán mạng xã hội}
-    \begin{mainbox}{Ai là người "trung tâm"?}
-        Trong một mạng lưới kết nối, việc tìm ra người quan trọng nhất dựa trên:
-        \begin{itemize}
-            \item \textbf{Degree Centrality:} Ai có nhiều bạn nhất?
-            \item \textbf{Betweenness Centrality:} Ai là "cầu nối" duy nhất giữa các nhóm?
-        \end{itemize}
-    \end{mainbox}
-    \vspace{0.3cm}
-    \begin{center}
-        \begin{tikzpicture}
-            \node[circle, fill=myorange, inner sep=5pt] (hub) at (0,0) {};
-            \foreach \i in {1,...,6} {
-                \node[circle, fill=myblue!50, inner sep=3pt] (n\i) at (\i*60:1.5) {};
-                \draw (hub) -- (n\i);
-            }
-        \end{tikzpicture}
-    \end{center}
 \end{frame}
 
 \end{document}
